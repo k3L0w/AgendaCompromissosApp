@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda de Compromissos Web</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <div>
+        <p class="app-tag">Versão Web</p>
+        <h1>Agenda de Compromissos</h1>
+      </div>
+      <button id="newAppointmentButton" class="primary-button">+ Adicionar</button>
+    </header>
+
+    <section class="info-bar">
+      <p>Os compromissos são salvos no navegador e permanecem mesmo após fechar a aba.</p>
+      <button id="requestNotificationsButton" class="secondary-button">Habilitar lembretes</button>
+    </section>
+
+    <section id="appointmentsContainer" class="appointments-container"></section>
+
+    <section id="emptyState" class="empty-state">
+      <p>Nenhum compromisso cadastrado. Clique em + para adicionar um novo compromisso.</p>
+    </section>
+  </main>
+
+  <div id="appointmentDialog" class="dialog-overlay hidden" role="dialog" aria-modal="true">
+    <div class="dialog-card">
+      <div class="dialog-header">
+        <h2 id="dialogTitle">Novo compromisso</h2>
+        <button id="closeDialogButton" class="icon-button" aria-label="Fechar">×</button>
+      </div>
+      <form id="appointmentForm" class="dialog-form">
+        <label>
+          Título
+          <input id="titleInput" type="text" placeholder="Título do compromisso" required maxlength="100" />
+        </label>
+        <label>
+          Data e hora
+          <input id="dateTimeInput" type="datetime-local" required />
+        </label>
+        <div class="dialog-actions">
+          <button type="button" id="cancelButton" class="secondary-button">Cancelar</button>
+          <button type="submit" class="primary-button">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

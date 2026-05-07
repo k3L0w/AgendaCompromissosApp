@@ -1,0 +1,226 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #eff4ff;
+  color: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eef6ff 0%, #ffffff 100%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.app-tag {
+  margin: 0 0 8px;
+  color: #2563eb;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.5vw, 2.8rem);
+  line-height: 1.05;
+}
+
+.info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid #dbeafe;
+  padding: 16px 18px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+}
+
+.appointments-container {
+  display: grid;
+  gap: 16px;
+}
+
+.empty-state {
+  background: #ffffff;
+  border: 1px dashed #93c5fd;
+  border-radius: 18px;
+  padding: 30px 24px;
+  text-align: center;
+  color: #475569;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.card-meta {
+  margin: 0;
+  color: #475569;
+  font-size: 0.95rem;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.primary-button,
+.secondary-button,
+.icon-button {
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.primary-button {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 12px 18px;
+  font-weight: 700;
+}
+
+.secondary-button {
+  background: #f8fafc;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  padding: 12px 18px;
+}
+
+.icon-button {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2e8f0;
+  color: #0f172a;
+  font-size: 1.3rem;
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.icon-button:hover {
+  transform: translateY(-1px);
+}
+
+.dialog-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.45);
+  padding: 20px;
+  z-index: 10;
+}
+
+.dialog-card {
+  width: min(560px, 100%);
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 22px 80px rgba(15, 23, 42, 0.18);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.dialog-form {
+  display: grid;
+  gap: 16px;
+}
+
+label {
+  display: grid;
+  gap: 10px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+input[type="text"],
+input[type="datetime-local"] {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+input:focus {
+  outline: 2px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .app-header,
+  .info-bar,
+  .dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

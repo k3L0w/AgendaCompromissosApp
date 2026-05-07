@@ -120,3 +120,23 @@ O app usa Room para armazenar compromissos em um banco SQLite local chamado `age
 
 - Este projeto já está pronto para a execução local.
 - Para suporte a backup/remoto, é possível adicionar Firebase ou sincronização com servidor.
+
+## Versão Web
+
+Uma versão web estática foi adicionada em `web/`. Ela reproduz as principais funcionalidades da agenda:
+
+- cadastro, edição e exclusão de compromissos;
+- listagem ordenada de eventos futuros;
+- limpeza automática de compromissos expirados;
+- persistência local usando `localStorage`.
+
+### Como executar a versão web
+
+1. Abra `web/index.html` em um navegador moderno.
+2. Clique em `+ Adicionar` para criar um compromisso.
+3. Conceda permissão de notificações se desejar lembretes no navegador.
+
+### Observações sobre lembretes
+
+- A versão web solicita permissão para enviar notificações pelo navegador.
+- O recurso de lembretes funciona enquanto a aba estiver aberta e o navegador suportar a API de notificações.
