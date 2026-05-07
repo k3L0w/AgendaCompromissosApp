@@ -1,0 +1,39 @@
+# Android
+*.apk
+*.aar
+*.o
+*.so
+*.dex
+*.class
+
+# Build outputs
+build/
+app/build/
+gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node.js (for web part)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.swp
