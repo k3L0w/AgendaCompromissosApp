@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';" />
   <title>Agenda de Compromissos Web</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -11,41 +12,94 @@
     <header class="app-header">
       <div>
         <p class="app-tag">Versão Web</p>
-        <h1>Agenda de Compromissos</h1>
+        <h1>Agenda profissional</h1>
+        <p class="app-subtitle">Organize seus compromissos com layout moderno, filtros rápidos e armazenamento local.</p>
       </div>
-      <button id="newAppointmentButton" class="primary-button">+ Adicionar</button>
+      <div class="hero-actions">
+        <button id="themeToggleButton" class="secondary-button">Modo noturno</button>
+        <button id="newAppointmentButton" class="primary-button">+ Novo compromisso</button>
+      </div>
     </header>
 
-    <section class="info-bar">
-      <p>Os compromissos são salvos no navegador e permanecem mesmo após fechar a aba.</p>
-      <button id="requestNotificationsButton" class="secondary-button">Habilitar lembretes</button>
+    <section class="dashboard-grid">
+      <article class="metric-card">
+        <span class="metric-label">Compromissos ativos</span>
+        <strong id="totalCount">0</strong>
+      </article>
+      <article class="metric-card">
+        <span class="metric-label">Próximo compromisso</span>
+        <strong id="nextAppointment">Nenhum agendado</strong>
+      </article>
+      <article class="metric-card metric-accent">
+        <span class="metric-label">Modo de armazenamento</span>
+        <strong>IndexedDB local</strong>
+      </article>
+    </section>
+
+    <section class="filter-bar">
+      <div class="filter-group">
+        <label class="filter-label" for="searchInput">Buscar</label>
+        <input id="searchInput" type="search" placeholder="Busque por título ou descrição" />
+      </div>
+      <div class="filter-group">
+        <label class="filter-label" for="categorySelect">Categoria</label>
+        <select id="categorySelect">
+          <option value="all">Todas</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Pessoal">Pessoal</option>
+          <option value="Saúde">Saúde</option>
+          <option value="Reunião">Reunião</option>
+          <option value="Outro">Outro</option>
+        </select>
+      </div>
     </section>
 
     <section id="appointmentsContainer" class="appointments-container"></section>
 
-    <section id="emptyState" class="empty-state">
-      <p>Nenhum compromisso cadastrado. Clique em + para adicionar um novo compromisso.</p>
+    <section id="emptyState" class="empty-state hidden">
+      <div class="empty-illustration">📅</div>
+      <p>Sem compromissos no momento. Crie um compromisso profissional para manter suas tarefas em dia.</p>
+      <button id="emptyAddButton" class="primary-button">Adicionar compromisso</button>
     </section>
   </main>
 
   <div id="appointmentDialog" class="dialog-overlay hidden" role="dialog" aria-modal="true">
     <div class="dialog-card">
       <div class="dialog-header">
-        <h2 id="dialogTitle">Novo compromisso</h2>
+        <div>
+          <h2 id="dialogTitle">Novo compromisso</h2>
+          <p class="dialog-description">Use detalhes e categoria para deixar a agenda mais precisa.</p>
+        </div>
         <button id="closeDialogButton" class="icon-button" aria-label="Fechar">×</button>
       </div>
       <form id="appointmentForm" class="dialog-form">
         <label>
           Título
-          <input id="titleInput" type="text" placeholder="Título do compromisso" required maxlength="100" />
+          <input id="titleInput" type="text" placeholder="Ex. Reunião com equipe" required maxlength="100" />
         </label>
         <label>
-          Data e hora
-          <input id="dateTimeInput" type="datetime-local" required />
+          Descrição
+          <textarea id="descriptionInput" rows="4" placeholder="Detalhe o compromisso, local ou observações"></textarea>
         </label>
+        <div class="grid-two">
+          <label>
+            Categoria
+            <select id="categoryInput">
+              <option value="Trabalho">Trabalho</option>
+              <option value="Pessoal">Pessoal</option>
+              <option value="Saúde">Saúde</option>
+              <option value="Reunião">Reunião</option>
+              <option value="Outro">Outro</option>
+            </select>
+          </label>
+          <label>
+            Data e hora
+            <input id="dateTimeInput" type="datetime-local" required />
+          </label>
+        </div>
         <div class="dialog-actions">
           <button type="button" id="cancelButton" class="secondary-button">Cancelar</button>
-          <button type="submit" class="primary-button">Salvar</button>
+          <button type="submit" class="primary-button">Salvar compromisso</button>
         </div>
       </form>
     </div>
