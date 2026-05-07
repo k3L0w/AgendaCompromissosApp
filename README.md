@@ -140,3 +140,11 @@ Uma versão web estática foi adicionada em `web/`. Ela reproduz as principais f
 
 - A versão web solicita permissão para enviar notificações pelo navegador.
 - O recurso de lembretes funciona enquanto a aba estiver aberta e o navegador suportar a API de notificações.
+
+### Segurança
+
+- **CSP (Content Security Policy)**: Implementado para prevenir execução de scripts não autorizados.
+- **Sanitização de entrada**: Títulos são sanitizados para remover caracteres potencialmente perigosos (< >).
+- **Validação de dados**: Dados carregados do localStorage são validados para estrutura correta.
+- **Privacidade**: Dados ficam armazenados localmente em plain text; considere criptografia para dados sensíveis.
+- **Limitações**: Como app client-side, vulnerável a manipulação via dev tools; não use para dados críticos.
