@@ -1,150 +1,158 @@
-# Agenda de Compromissos Android
+# Agenda de Compromissos
 
-Aplicativo Android simples e funcional para criar, editar e alertar compromissos. Inclui:
+[![GitHub](https://img.shields.io/badge/host-GitHub-181717?logo=github&logoColor=white)](https://github.com)
+[![Deploy](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel&logoColor=white)](https://vercel.com)
+[![Status](https://img.shields.io/badge/status-ready-brightgreen)](https://github.com)
 
-- Cadastro de compromisso com título e data/hora.
-- Lembrete um dia antes e uma hora antes do compromisso.
-- Exclusão automática de compromissos vencidos.
-- Interface moderna, leve e fácil de usar com Jetpack Compose.
-- Persistência local com Room (SQLite) para não perder dados após fechar o app.
+Bem-vindo ao **Agenda de Compromissos**, um projeto híbrido que combina uma experiência móvel Android com uma versão web leve e moderna.
 
-## Estrutura do projeto
+Aqui você encontra:
 
-- `app/src/main/java/com/example/agenda/MainActivity.kt` - interface principal e lógica de UI.
-- `app/src/main/java/com/example/agenda/Appointment.kt` - entidade Room para compromisso.
-- `app/src/main/java/com/example/agenda/AppointmentDao.kt` - acesso ao banco de dados.
-- `app/src/main/java/com/example/agenda/AppDatabase.kt` - configuração do banco Room.
-- `app/src/main/java/com/example/agenda/AppointmentAlarmScheduler.kt` - agenda notificações.
-- `app/src/main/java/com/example/agenda/ReminderReceiver.kt` - gera notificações.
-- `app/src/main/java/com/example/agenda/CleanupWorker.kt` - remove compromissos vencidos.
-- `app/src/main/java/com/example/agenda/Theme.kt` / `Color.kt` - tema visual.
+- 📱 Uma aplicação Android em Jetpack Compose
+- 🌐 Uma versão web estática com armazenamento local no navegador
+- ⏰ Lembretes antecipados para seus eventos
+- 💾 Dados persistidos no dispositivo/cliente, sem backend obrigatório
 
-## Requisitos e configuração do ambiente
+---
 
-### 1. Instalar o Android Studio
+## 📌 Sumário
 
-- Baixe e instale o Android Studio mais recente.
-- Instale o Android SDK Platform 34.
-- Habilite os componentes do Kotlin e Jetpack Compose.
+- [🚀 O que este projeto faz](#-o-que-este-projeto-faz)
+- [🧩 Arquitetura do projeto](#-arquitetura-do-projeto)
+- [🛠️ Como executar](#-como-executar)
+- [🧠 Como o armazenamento funciona](#-como-o-armazenamento-funciona)
+- [🔐 Segurança e privacidade](#-segurança-e-privacidade)
+- [📦 Publicação no Vercel](#-publicação-no-vercel)
+- [💡 Próximos passos](#-próximos-passos)
 
-### 2. Abrir o projeto
+---
 
-1. No Android Studio, escolha `Open`.
-2. Selecione a pasta do projeto: `C:\Users\fic\AgendaCompromissosApp`.
-3. Aguarde o Gradle sincronizar.
+## 🚀 O que este projeto faz
 
-### 3. Configurar Gradle / wrapper
+- Cria, edita e exclui compromissos.
+- Mostra apenas eventos futuros automaticamente.
+- Agenda lembretes 24h e 1h antes do compromisso na versão Android.
+- Remove compromissos expirados automaticamente.
+- Salva os dados localmente, garantindo privacidade do usuário.
 
-O projeto já contém os arquivos:
+---
 
-- `settings.gradle.kts`
-- `build.gradle.kts`
-- `app/build.gradle.kts`
+## 🧩 Arquitetura do projeto
 
-Se necessário, gere o Gradle Wrapper com:
+### Android (`app/`)
 
-```powershell
-cd C:\Users\fic\AgendaCompromissosApp
-gradle wrapper
-```
+- `app/src/main/java/com/example/agenda/MainActivity.kt` — UI principal e fluxo de interação.
+- `app/src/main/java/com/example/agenda/Appointment.kt` — entidade Room para compromissos.
+- `app/src/main/java/com/example/agenda/AppointmentDao.kt` — consultas e persistência.
+- `app/src/main/java/com/example/agenda/AppDatabase.kt` — configuração do banco Room.
+- `app/src/main/java/com/example/agenda/AppointmentAlarmScheduler.kt` — agenda notificações e cancela alarmes.
+- `app/src/main/java/com/example/agenda/ReminderReceiver.kt` — gera notificações no dispositivo.
+- `app/src/main/java/com/example/agenda/CleanupWorker.kt` — remove compromissos que já passaram.
+- `app/src/main/java/com/example/agenda/Theme.kt` / `Color.kt` — estilos e cores do app.
 
-Ou use o comando do Android Studio: `File > Sync Project with Gradle Files`.
+### Web (`web/`)
 
-### 4. Configurar dispositivo de teste
+- `web/index.html` — interface web responsiva.
+- `web/styles.css` — estilo visual moderno.
+- `web/app.js` — lógica de armazenamento, CRUD e notificações.
 
-- Use um emulador Android com API 34 ou superior.
-- Ou conecte um celular físico com a depuração USB habilitada.
+---
 
-### 5. Permissão de notificações
+## 🛠️ Como executar
 
-No Android 13 ou superior, o app pedirá permissão `POST_NOTIFICATIONS` ao iniciar.
-Aceite essa permissão para receber os alertas de compromisso.
+### Android
 
-## Como executar
+1. Abra o projeto no Android Studio.
+2. Selecione o módulo `app`.
+3. Rode em um emulador ou dispositivo físico.
 
-1. No Android Studio, selecione o módulo `app`.
-2. Escolha o dispositivo ou emulador.
-3. Clique em `Run`.
-4. O app será instalado e iniciado.
+> Recomendado: Android API 34 ou superior.
 
-## Banco de dados local
-
-O app usa Room para armazenar compromissos em um banco SQLite local chamado `agenda.db`.
-
-- O arquivo é criado automaticamente na primeira execução.
-- A tabela principal é `appointments`.
-- Os compromissos são mantidos no dispositivo, mesmo após fechar o app.
-- Há limpeza automática de compromissos com data/hora anterior ao momento atual.
-
-### Como o banco funciona
-
-- `Appointment` contém `id`, `title` e `appointmentDateTimeMs`.
-- `AppointmentDao` oferece métodos para:
-  - listar todos os compromissos futuros
-  - inserir ou atualizar um compromisso
-  - excluir um compromisso
-  - remover compromissos expirados
-- `AppDatabase` cria uma instância singleton de Room e persiste os dados em `agenda.db`.
-
-## Notificações e agendamento
-
-- Ao salvar ou editar um compromisso, o app agenda dois alarmes:
-  - 24 horas antes do evento
-  - 1 hora antes do evento
-- Os alarmes usam `AlarmManager` e são entregues pelo `ReminderReceiver`.
-- As notificações aparecem no dispositivo com título e mensagem do compromisso.
-- Se o compromisso for excluído, os alarmes são cancelados.
-
-## Exclusão automática de compromissos vencidos
-
-- O `CleanupWorker` usa WorkManager para rodar a cada 24 horas.
-- Ele remove compromissos cuja data/hora já passou.
-- Assim, a lista fica sempre atualizada com eventos futuros.
-
-## Teste rápido
-
-1. Abra o app.
-2. Toque no botão `+` para criar um compromisso.
-3. Informe o título e escolha data/hora futuras.
-4. Salve.
-5. Verifique se o compromisso aparece na lista.
-6. Edite ou exclua para confirmar que funciona.
-
-## Dicas de uso
-
-- Use datas futuras para testar os lembretes.
-- Se quiser testar notificações rapidamente, crie um compromisso para daqui a 1 hora ou menos.
-- O banco `agenda.db` fica no armazenamento interno do app e não precisa ser configurado manualmente.
-
-## Observações finais
-
-- Este projeto já está pronto para a execução local.
-- Para suporte a backup/remoto, é possível adicionar Firebase ou sincronização com servidor.
-
-## Versão Web
-
-Uma versão web estática foi adicionada em `web/`. Ela reproduz as principais funcionalidades da agenda:
-
-- cadastro, edição e exclusão de compromissos;
-- listagem ordenada de eventos futuros;
-- limpeza automática de compromissos expirados;
-- persistência local usando IndexedDB no navegador.
-
-### Como executar a versão web
+### Web
 
 1. Abra `web/index.html` em um navegador moderno.
 2. Clique em `+ Adicionar` para criar um compromisso.
-3. Conceda permissão de notificações se desejar lembretes no navegador.
+3. Habilite notificações se quiser alertas no navegador.
 
-### Observações sobre lembretes
+> Observação: a versão web salva os dados localmente no navegador usando IndexedDB, sem envio para servidor.
 
-- A versão web solicita permissão para enviar notificações pelo navegador.
-- O recurso de lembretes funciona enquanto a aba estiver aberta e o navegador suportar a API de notificações.
+---
 
-### Segurança
+## 🧠 Como o armazenamento funciona
 
-- **CSP (Content Security Policy)**: Implementado para prevenir execução de scripts não autorizados.
-- **Sanitização de entrada**: Títulos são sanitizados para remover caracteres potencialmente perigosos (< >).
-- **Validação de dados**: Dados carregados do localStorage são validados para estrutura correta.
-- **Privacidade**: Dados ficam armazenados localmente em plain text; considere criptografia para dados sensíveis.
-- **Limitações**: Como app client-side, vulnerável a manipulação via dev tools; não use para dados críticos.
+### Android
+
+A versão Android usa **Room + SQLite** para persistir dados localmente no dispositivo.
+
+- Banco: `agenda.db`
+- Tabela: `appointments`
+- Dados mantidos mesmo após fechar o app
+
+### Web
+
+A versão web usa **IndexedDB** para guardar compromissos no navegador.
+
+- Os dados são locais ao browser e à origem do site.
+- Não há compartilhamento entre usuários.
+- Há fallback para `localStorage` quando IndexedDB não está disponível.
+
+---
+
+## 🔐 Segurança e privacidade
+
+- A versão web aplica **CSP** para reduzir riscos de injeção de script.
+- Inputs de usuário são sanitizados antes de serem persistidos.
+- Dados da versão web ficam no dispositivo do usuário e são isolados por navegador/perfil.
+- A versão Android não expõe o `ReminderReceiver` externamente.
+- `android:allowBackup` está definido como `false` para evitar backups automáticos indesejados.
+
+---
+
+## 🎯 Principais melhorias já implementadas
+
+- UI limpa, profissional e responsiva na versão web.
+- Busca rápida, filtros por categoria e resumo de compromissos.
+- Campos avançados na web: descrição, categoria e data/hora.
+- Armazenamento local em ambas as plataformas.
+- Notificações nos lembretes (Android) e permissão de notificações no browser.
+- Limpeza automática de compromissos vencidos.
+- Segurança reforçada no web com validação e CSP.
+
+---
+
+## 🧪 Teste rápido
+
+1. Crie um novo compromisso.
+2. Defina uma data futura.
+3. Salve e veja o evento na lista.
+4. Edite ou exclua para validar o fluxo.
+5. No Android, observe a criação de lembretes.
+
+---
+
+## 📦 Publicação no Vercel
+
+A pasta `web/` é pronta para deploy como site estático no Vercel.
+
+- Não há backend exigido.
+- Não há segredos ou credenciais no repositório.
+- Cada usuário mantém seus dados localmente no navegador.
+
+---
+
+## 💡 Próximos passos
+
+Se quiser evoluir o projeto, você pode adicionar:
+
+- sincronização opcional com servidor ou Firebase;
+- autenticação de usuário;
+- export/import de compromissos;
+- UI de calendário;
+- criptografia local para dados sensíveis.
+
+---
+
+## 📄 Observações finais
+
+Este repositório já tem tudo para rodar localmente e publicar a versão web.
+A experiência foi projetada para ser simples, segura e centrada no usuário.
