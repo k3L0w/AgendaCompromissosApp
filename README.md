@@ -128,7 +128,7 @@ Uma versão web estática foi adicionada em `web/`. Ela reproduz as principais f
 - cadastro, edição e exclusão de compromissos;
 - listagem ordenada de eventos futuros;
 - limpeza automática de compromissos expirados;
-- persistência local usando `localStorage`.
+- persistência local usando IndexedDB no navegador.
 
 ### Como executar a versão web
 
